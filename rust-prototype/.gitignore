@@ -1,0 +1,13 @@
+/tools/cargo/
+/tools/rustup/
+/tools/rustup-init.exe
+/target/
+/target-logic/
+/tools/*.log
+/tools/installed-before.json
+/output/
+/captures/
+
+
+/reference/
+/tools/letsgo/work/

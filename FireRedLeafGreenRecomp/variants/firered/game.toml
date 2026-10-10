@@ -1,0 +1,242 @@
+# game.toml — Pokémon FireRed Version (GBA), USA v1.0
+#
+# This is ONE variant of the FRLG multi-variant repo. Its sibling is
+# ../leafgreen/. The runner reads this file (path given to the binary via
+# the GBARECOMP_DEFAULT_GAME_CONFIG compile-def, default
+# "variants/firered/game.toml") to decide which ROM to load, which region
+# config to layer in, where the entry point is, and what save chip is
+# expected. All paths below resolve relative to THIS file's directory
+# (variants/firered/), per runtime.cpp resolve_config_path.
+
+[game]
+name           = "Pokémon FireRed Version"
+short_name     = "firered"
+default_region = "usa"
+
+# ── BIOS identity ────────────────────────────────────────────────────
+# The GBA BIOS is real, executed, recompiled code. The runner refuses to
+# launch without a hash-verified BIOS. Shared across every gbarecomp game.
+# Path is relative to this file: variants/firered/ -> repo -> container.
+[bios]
+path = "../../../gbarecomp/bios/gba_bios.bin"   # override via --bios
+sha1 = "300c20df6731a33952ded8c436f7f186d25d3492"
+
+# ── ROM identity ─────────────────────────────────────────────────────
+[rom]
+path = "roms/firered_usa.gba"   # user-provided; gitignored
+# sha1 is filled in per region in config/<region>.toml (rev0 = 41cb23d8…).
+
+# ── Recompiler entry & layout (consumed by gba_recompile) ───────────
+# ── Recompiler program identity (consumed by gba_recompile) ─────────
+#
+# This file is the BASE config for the recompile: it owns [program] and
+# [identity] and wins every conflict with the generated overlay layered on
+# top of it (symbols/BPRE_symbols.toml).
+#
+# Until 2026-08-21 the recompile was driven by the importer's generated
+# symbols/firered.toml INSTEAD of this file, because only that file carried a
+# [program] table — so every import replaced the hand-authored config and
+# nothing reviewed could survive one. These values are carried over verbatim.
+[program]
+name         = "Pokemon FireRed Version (USA)"
+id           = "firered_usa"
+load_address = 0x08000000
+size         = 0x01000000
+entry_pc     = 0x08000000
+codegen_shards = 64
+
+[identity]
+sha1 = "41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc"
+
+# ── Runtime code copy that is NOT symbol-derivable ──────────────────
+#
+# ReadFlashId stack-copies the tiny ReadFlash1 helper (via SetReadFlash1)
+# into a stack local before reading the flash chip's manufacturer/device ID.
+# The destination is a stack address, so unlike the IntrMain and SoundMainRAM
+# copies there is no destination SYMBOL for the importer to resolve — it has
+# to be stated here, and it is deterministic for this boot path.
+#
+# This is load-bearing, not an optimization: without it ReadFlash1 is not
+# statically recompiled, flash detection fails, gFlashMemoryPresent stays
+# FALSE, and AgbMain hands SetMainCallback2 a NULL callback — the game boots
+# to a black screen and never recovers.
+[[code_copy]]
+runtime_start = 0x03007DCC
+source_start  = 0x081DEA30
+size          = 0x4
+name          = "ReadFlash1_stack_Buffer"
+note = "ReadFlashId stack-copies ReadFlash1 via SetReadFlash1 into readFlash1Buffer"
+
+[[extra_func]]
+addr = 0x03007DCC
+mode = "thumb"
+name = "ReadFlash1_stack"
+note = "THUMB entry of the ReadFlash1 stack copy above"
+
+# NOTE: the fields below are consumed by the runner/tooling; the recompile's
+# seeds come from --symbols and its data ranges from the overlay.
+[recompiler]
+entry_point   = "0x08000000"
+seeds         = "symbols/imported_symbols.tsv"
+boundaries    = "symbols/function_boundaries.tsv"
+out_dir       = "generated"
+strict        = true
+
+# ── Save chip ────────────────────────────────────────────────────────
+# FireRed/LeafGreen use 1 Mbit (128 KB) flash (agb_flash_1m).
+[save]
+type = "flash1m"          # one of: sram | flash512 | flash1m | eeprom
+
+# ── Runtime ─────────────────────────────────────────────────────────
+# Each variant gets a distinct debug_port so multiple runners coexist:
+#   firered 19852 · leafgreen 19862 · ruby 19872 · sapphire 19882 · emerald 19892
+[runtime]
+debug_port    = 19852
+window_title  = "FireRedRecomp"
+
+[functions]
+arm   = []
+thumb = []
+
+# ── Native OPTION extras seam (src/fr_settings_menu.cpp) ────────────
+# The title-screen main menu shows its third box (the MYSTERY GIFT slot)
+# as OPTION and opens the game's own OPTION screen from it. Both callbacks
+# decline (the original body runs) outside that exact main-menu context.
+[[mod_function_hook]]
+addr = 0x0806E2BC
+mode = "thumb"
+note = "IsMysteryGiftEnabled — TRUE on the main menu so the OPTION box shows"
+
+[[mod_function_hook]]
+addr = 0x08009480
+mode = "thumb"
+note = "IsWirelessAdapterConnected — main-menu OPTION selection takes the clean exit path"
+
+
+# ── PC input probes (src/fr_pc_input.cpp) ────────────────────────────────
+# Observe-only: each callback records that the routine ran this frame and
+# always declines, so the original guest body runs unchanged. Mouse support
+# uses them to know which menu/list currently owns input.
+[[mod_function_hook]]
+addr = 0x0810F998
+mode = "thumb"
+note = "Menu_ProcessInput — sMenu live (wrapping)"
+
+[[mod_function_hook]]
+addr = 0x0810FA04
+mode = "thumb"
+note = "Menu_ProcessInputNoWrapAround — sMenu live"
+
+[[mod_function_hook]]
+addr = 0x0810FA84
+mode = "thumb"
+note = "Menu_ProcessInput_other — sMenu live (wrapping)"
+
+[[mod_function_hook]]
+addr = 0x0810FAF0
+mode = "thumb"
+note = "Menu_ProcessInputNoWrapAround_other — sMenu live"
+
+[[mod_function_hook]]
+addr = 0x081100C8
+mode = "thumb"
+note = "Menu_ProcessInputNoWrapClearOnChoose — Yes/No and similar"
+
+[[mod_function_hook]]
+addr = 0x08110650
+mode = "thumb"
+note = "Menu_ProcessInputGridLayout — grid sMenu live"
+
+[[mod_function_hook]]
+addr = 0x081105A0
+mode = "thumb"
+note = "Menu_ProcessGridInput_NoSoundLimit — grid sMenu live"
+
+[[mod_function_hook]]
+addr = 0x081106F4
+mode = "thumb"
+note = "Menu_ProcessGridInputRepeat_NoSoundLimit — grid sMenu live"
+
+[[mod_function_hook]]
+addr = 0x081107A0
+mode = "thumb"
+note = "Menu_ProcessGridInputRepeat — grid sMenu live"
+
+[[mod_function_hook]]
+addr = 0x08107078
+mode = "thumb"
+note = "ListMenu_ProcessInput(listTaskId) — list menu live"
+
+[[mod_function_hook]]
+addr = 0x0805644C
+mode = "thumb"
+note = "DoCB1_Overworld — field input processed this frame"
+
+[[mod_function_hook]]
+addr = 0x0806F280
+mode = "thumb"
+note = "StartCB_HandleInput — Start menu owns input (moves sMenu itself)"
+
+# ── HD interface: window/text capture probes (src/fr_hd_capture.cpp) ──────
+# Observe-only: they record what the game draws into its text windows so the
+# HD UI can redraw it; the guest bodies always run.
+
+[[mod_function_hook]]
+addr = 0x08003014
+mode = "thumb"
+note = "CopyGlyphToWindow — one glyph drawn into a window"
+
+[[mod_function_hook]]
+addr = 0x0800445C
+mode = "thumb"
+note = "FillWindowPixelBuffer — window cleared"
+
+[[mod_function_hook]]
+addr = 0x08004378
+mode = "thumb"
+note = "FillWindowPixelRect — part of a window cleared"
+
+[[mod_function_hook]]
+addr = 0x080044A8
+mode = "thumb"
+note = "ScrollWindow — window contents scrolled"
+
+[[mod_function_hook]]
+addr = 0x08004404
+mode = "thumb"
+note = "CopyToWindowPixelBuffer — graphics copied into a window"
+
+[[mod_function_hook]]
+addr = 0x080041F0
+mode = "thumb"
+note = "BlitBitmapRectToWindow — bitmap (arrow / icon) blitted into a window"
+
+[[mod_function_hook]]
+addr = 0x080042B0
+mode = "thumb"
+note = "BlitBitmapRectToWindowWithColorKey — keyed bitmap blitted into a window"
+
+[[mod_function_hook]]
+addr = 0x08003E3C
+mode = "thumb"
+note = "RemoveWindow"
+
+[[mod_function_hook]]
+addr = 0x08003ECC
+mode = "thumb"
+note = "FreeAllWindowBuffers"
+
+[[mod_function_hook]]
+addr = 0x08003B24
+mode = "thumb"
+note = "InitWindows"
+
+[[mod_function_hook]]
+addr = 0x080063C8
+mode = "thumb"
+note = "DrawKeypadIcon — button prompt glyph"
+
+[[mod_function_hook]]
+addr = 0x08094F94
+mode = "thumb"
+note = "HandleMenuInput (PC storage) — sMenu live (wrapping)"

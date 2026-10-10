@@ -1,0 +1,95 @@
+{
+  "rom_sha1": "41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc",
+  "sprites": [
+    {
+      "name": "charmander",
+      "species": 4,
+      "table": "gMonBackPicTable",
+      "sprite_pointer": "0x8d321ec",
+      "palette_pointer": "0x8d321c4",
+      "source_tiles_sha256": "26903209adf6c1f18df6e155cfda9340eafb8f62bdc623f74a35ff23305fbd45",
+      "output_sha256": "d58d34a913f2c30a5ff429e2b749243e707b1168a297b38824af78cecc927c4a"
+    },
+    {
+      "name": "squirtle",
+      "species": 7,
+      "table": "gMonFrontPicTable",
+      "sprite_pointer": "0x8d34140",
+      "palette_pointer": "0x8d343dc",
+      "source_tiles_sha256": "064c75592e475e71aab15acfc4de144c15807974a8d2fd32bc8855a2e95eda87",
+      "output_sha256": "e01eba0a03b062c40311fc5048ffee61c50a1c29afc62113e297b76681c76307"
+    },
+    {
+      "name": "bulbasaur",
+      "species": 1,
+      "table": "gMonBackPicTable",
+      "sprite_pointer": "0x8d2fea0",
+      "palette_pointer": "0x8d2fe78",
+      "source_tiles_sha256": "c3f4a64b83ff1f7048cb3b6b5d4da4fe83c67b89626741334c8e26bc03b2df41",
+      "output_sha256": "9187b73bb97077eee84d6ee3a31a0cd1cd4791555224c9e1fdcc34a629706c04"
+    },
+    {
+      "name": "charmander_front",
+      "species": 4,
+      "table": "gMonFrontPicTable",
+      "sprite_pointer": "0x8d31f24",
+      "palette_pointer": "0x8d321c4",
+      "source_tiles_sha256": "99512f72225d543bb4ce136380e424df45de4640b8a4c2098afa5010a2d2da64",
+      "output_sha256": "f2f9647cb12a42a83937755d160731a540d8d2bbd1ae48c85b195df8d563dfd9"
+    },
+    {
+      "name": "squirtle_back",
+      "species": 7,
+      "table": "gMonBackPicTable",
+      "sprite_pointer": "0x8d34404",
+      "palette_pointer": "0x8d343dc",
+      "source_tiles_sha256": "5f8697f0798e4e691ce6f13efd8bdb22a6e119cbf9b8812ac47a14dda9959b0a",
+      "output_sha256": "8ab69151224cbf353f964879497d37f23d8dd15d6868425f7e9627fc51a9e76c"
+    },
+    {
+      "name": "bulbasaur_front",
+      "species": 1,
+      "table": "gMonFrontPicTable",
+      "sprite_pointer": "0x8d2fbd4",
+      "palette_pointer": "0x8d2fe78",
+      "source_tiles_sha256": "368698322f3594e81f0f02d949ae905810effeaa231e500891423449f11f77bd",
+      "output_sha256": "13abccf27f66cbff0cc9e6ef77af4471f2583dd080727a3dd7b00adbc7cf340f"
+    },
+    {
+      "name": "pidgey",
+      "species": 16,
+      "table": "gMonBackPicTable",
+      "sprite_pointer": "0x8d3a278",
+      "palette_pointer": "0x8d3a250",
+      "source_tiles_sha256": "d6a571068fddca31c98db77f66afcb421197664aa12a609933328239900a8113",
+      "output_sha256": "2ca74bc7bf634021e9e9868d8a17099231b635c19cbc6cb7ed9e32f0cd419637"
+    },
+    {
+      "name": "pidgey_front",
+      "species": 16,
+      "table": "gMonFrontPicTable",
+      "sprite_pointer": "0x8d39fd8",
+      "palette_pointer": "0x8d3a250",
+      "source_tiles_sha256": "210dd3d1cd7174505f91965726d0b7710c6f0b41a12c0ddb9c3104f54f010723",
+      "output_sha256": "926459ef1ae001be4b0ec4ee7a686ec84105791702a59572a2dc094be3ae1665"
+    },
+    {
+      "name": "rattata",
+      "species": 19,
+      "table": "gMonBackPicTable",
+      "sprite_pointer": "0x8d3c52c",
+      "palette_pointer": "0x8d3c504",
+      "source_tiles_sha256": "1e63276a2dda691675f576216e9f3a069b8c3b1b9a35e245e9af4a31115e533b",
+      "output_sha256": "f20e9fb6af3f8a085e503d35a904440f74ec8d643584d972f906e928cda49fb2"
+    },
+    {
+      "name": "rattata_front",
+      "species": 19,
+      "table": "gMonFrontPicTable",
+      "sprite_pointer": "0x8d3c2ac",
+      "palette_pointer": "0x8d3c504",
+      "source_tiles_sha256": "822e911df682794c3d308865c073632566cbe866af1440ac2012f1f40161a43c",
+      "output_sha256": "1f66b37f8060fd65ff3cb53c1343e9cd4385f5fc606dfe39b8277a403f9f86d2"
+    }
+  ]
+}

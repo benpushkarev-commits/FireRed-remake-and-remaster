@@ -1,0 +1,19 @@
+{
+  "revision": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+  "sources": {
+    "src/data/pokemon/species_info.h": "9c2da1284f7859700b315abda0499334c422f2c6776d576c788fcd1e4050f71e",
+    "src/data/battle_moves.h": "54e08c749547afaf73eb2f1e4f4e3023f4d8e186d2f608c29bd6419c291b5384",
+    "src/data/pokemon/level_up_learnsets.h": "d6563a88fa893d1433a02027cb13ba9574a6828a96b1a730b1d767fd7c5a0cc6",
+    "src/data/trainers.h": "b2105a3b1d1baec02d8f6a89f44bcdf6a05cbaac1d6d8872766eec49aa8555bc",
+    "src/data/trainer_parties.h": "cb135d9cbdfc52c87066374d582506830a8c93561eab2033d847331c2de00299",
+    "data/battle_ai_scripts.s": "0971513157b28ba27ce272acaa2388afa7362a302711f737cad6c3598ca1b389",
+    "charmap.txt": "4da662317b3b5109a52064f9012d85b644d1dbf0f3f24243374aeef4cf25f061",
+    "src/pokemon.c": "116a470cd9ebfa226aa8d85c2eb63591e176d726837c67baaa1ac6260d50f2ec",
+    "src/data/pokemon/experience_tables.h": "9a236761640676e251b76b7950b86e5881ee23dfe920ca27bbe47b4541542731"
+  },
+  "trainer": "TRAINER_RIVAL_OAKS_LAB_SQUIRTLE",
+  "player_fixture": "Level 5 Charmander, Hardy, all IVs 31, all EVs 0; explicit test fixture",
+  "rival_personality": 672136,
+  "rival_nature": 11,
+  "runtime": "Native Rust; source AI scripts are data, not ARM code"
+}

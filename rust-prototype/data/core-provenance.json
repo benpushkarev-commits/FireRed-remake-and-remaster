@@ -1,0 +1,31 @@
+{
+  "revision": "037335f4c725d7c9aecdac87066f2002b4bd7e14",
+  "sources": {
+    "include/constants/global.h": "7ecf4a63c7be65328135a75f8620786e40343bbe7688e7017e6d780526fd6a0c",
+    "include/constants/pokemon.h": "9cabd203100ae7246bc595b7295e7e04145f6292abfab83c3bd0597a2cfbcfb5",
+    "include/constants/species.h": "ec3f9f9c2717dcd453aa7a27506c32e1e6ca067864534dee494695d74344c51a",
+    "include/constants/moves.h": "79d5b93423006c25e6ee47355b15f403b2534616fd6b638e1755e5886d378194",
+    "include/constants/items.h": "af17276346eaecc5a10ac60f14b22c33332ec8c6fb0ec82895bdc3649b678138",
+    "include/constants/abilities.h": "1c1b93de5d5ff65d8b3066e9b40229b5d30e02842e587e3851a1d708ece1292b",
+    "src/data/pokemon/species_info.h": "9c2da1284f7859700b315abda0499334c422f2c6776d576c788fcd1e4050f71e",
+    "src/data/pokemon/level_up_learnsets.h": "d6563a88fa893d1433a02027cb13ba9574a6828a96b1a730b1d767fd7c5a0cc6",
+    "src/data/pokemon/level_up_learnset_pointers.h": "7a85513797da2a2ebdf7893ce58d94f99aee07deb1aec4f0d7a31422dc8040de",
+    "src/data/battle_moves.h": "54e08c749547afaf73eb2f1e4f4e3023f4d8e186d2f608c29bd6419c291b5384",
+    "src/data/items.json": "d962ec3ea31391f9a30fa7d12bfb47f6519407bc2aad395c99baec52430c1489",
+    "src/data/pokemon/experience_tables.h": "9a236761640676e251b76b7950b86e5881ee23dfe920ca27bbe47b4541542731",
+    "src/pokemon.c": "116a470cd9ebfa226aa8d85c2eb63591e176d726837c67baaa1ac6260d50f2ec",
+    "src/item.c": "117c3d29617bd779db7c32332ab75fe5859f02ee6165a047508558977a88d01a",
+    "src/event_data.c": "163fcef03561426fc185b499eef1088dc7a4334b612968a82df3a0fa6131d06f",
+    "src/new_game.c": "55f03492ea90ee853550a40008089d44ca59c28cb47b8aa10aa2494e8d8608cc",
+    "include/random.h": "8a6049183598b2d865b5ff522abdb3d0e94012a127d724af46b9b7b69803f5b9",
+    "src/random.c": "e7e90cc070d1fbf09579f5f91762cd8875d5bbe1d7a90f468bcd870df73b9de2",
+    "include/constants/flags.h": "45f31e4dc3d42c1054463974cd31b1173bdd4cb6d9f94b2cdbf2c88b0f745493",
+    "include/constants/vars.h": "be26624aac5cbc9ea4d364d5cc33500b4b6c7ecd47812a50b961d948f6914b12"
+  },
+  "status": "Imported tables; new runtime behaviour unverified against original C.",
+  "counts": {
+    "species": 411,
+    "moves": 356,
+    "items": 375
+  }
+}

@@ -1,0 +1,25 @@
+# Searched by ripgrep, which Claude Code, Codex and most AI coding tools use.
+# Keeps them out of huge machine-generated or binary folders, which would
+# burn usage for nothing.
+FireRedLeafGreenRecomp/variants/*/generated/
+FireRedLeafGreenRecomp/variants/*/roms/
+FireRedLeafGreenRecomp/gbarecomp/src/runtime/generated_bios/
+FireRedLeafGreenRecomp/src/fr_hd_fonts.cpp
+build/
+deps/
+*.gba
+*.sav
+*.state*
+*.exe
+*.dll
+*.zip
+*.png
+*.tga
+*.ttf
+# test output (screenshots, logs, copied exe/ROM) - open only the capture you need
+tools/check-game/
+**/__pycache__/
+*.bmp
+*.pyc
+graphify-out/graph.json
+graphify-out/graph.html

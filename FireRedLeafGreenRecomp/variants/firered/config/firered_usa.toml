@@ -1,0 +1,17 @@
+# firered_usa.toml — region-specific overrides for the USA v1.0 release.
+#
+# Layered on top of game.toml. Cross-verified against pret/pokefirered's
+# firered.sha1 (the decomp's own build target).
+
+[rom]
+sha1  = "41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc"
+crc32 = "0xDD88761C"  # IEEE 802.3, headerless. Informational —
+                      # the runtime's gate is SHA-1, not CRC32.
+
+[save]
+type = "flash1m"    # 1 Mbit (128 KB) flash on the FireRed cart
+size = "0x20000"
+
+# Per-region IRQ / DMA / timer quirks (if any) go here. Empty in the
+# scaffold; filled in once observed via oracle comparison.
+[quirks]

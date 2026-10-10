@@ -1,0 +1,22 @@
+FireRed Remaster - project folder
+=================================
+
+This folder is the full source of your remaster, set up so Claude Code,
+Codex or any other AI coding app can work on it directly on your PC.
+
+Using Claude Code
+  1. Run SETUP-CLAUDE-CODE.bat once. It installs Claude Code and puts a
+     "FireRed Remaster - Claude Code" shortcut on your Desktop.
+  2. Open that shortcut. The first time, log in with your Claude account.
+  3. Ask for one thing at a time, and type /clear before starting the next.
+
+Using Codex
+  Open this folder in Codex (or the "FireRed Remaster - Codex" shortcut).
+  Both apps read AGENTS.md, so they know the project and your rules
+  (public repo: never commit game files) and how to build.
+
+Building it yourself
+  tools\build.bat     builds the game
+  tools\deploy.bat    copies it into your game folder (close the game first)
+
+docs\STATE.md lists every feature and what's left to do.

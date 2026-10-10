@@ -1,0 +1,34 @@
+# Graphify: map only the code we actually work on (gitignore syntax).
+# Generated / third-party / binary / test-output folders stay out.
+FireRedLeafGreenRecomp/variants/
+FireRedLeafGreenRecomp/third_party/
+FireRedLeafGreenRecomp/ghidra/
+FireRedLeafGreenRecomp/tools/
+FireRedLeafGreenRecomp/res/
+FireRedLeafGreenRecomp/src/fr_hd_fonts.cpp
+FireRedLeafGreenRecomp/gbarecomp/src/runtime/generated_bios/
+FireRedLeafGreenRecomp/gbarecomp/external/
+FireRedLeafGreenRecomp/gbarecomp/third_party/
+FireRedLeafGreenRecomp/gbarecomp/tests/
+FireRedLeafGreenRecomp/gbarecomp/oracle/
+FireRedLeafGreenRecomp/gbarecomp/docs/
+FireRedLeafGreenRecomp/gbarecomp/packaging/
+FireRedLeafGreenRecomp/recomp-ui/src/third_party/
+FireRedLeafGreenRecomp/recomp-ui/test_data/
+FireRedLeafGreenRecomp/recomp-ui/tests/
+FireRedLeafGreenRecomp/recomp-ui/assets/
+deps/
+build/
+tools/check-game/
+graphify-out/
+# code only: no documents, so building the graph needs no AI model
+*.md
+*.txt
+*.pdf
+*.png
+*.bmp
+*.tga
+*.ttf
+*.json
+*.toml
+*.ini

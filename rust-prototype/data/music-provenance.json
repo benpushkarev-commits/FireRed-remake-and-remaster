@@ -1,0 +1,21 @@
+{
+  "renderer": "https://github.com/mudassarzahid/gba-audio-tools",
+  "revision": "45e84ba8a5a47b22e56dac7e4e87b1ac605bcb19",
+  "rom_sha1": "41cb23d8dccc8ebd7c649cd8fbb58eeace6e2fdc",
+  "songs": {
+    "pallet": {
+      "song_id": 300,
+      "seconds": 43.875,
+      "sample_rate": 32768,
+      "peak": 4873,
+      "sha256": "79d497a1fd5b9cd8b5a961906c15d64a65b480dd98723df9601559c2bd65a7e6"
+    },
+    "route1": {
+      "song_id": 291,
+      "seconds": 25.25,
+      "sample_rate": 32768,
+      "peak": 6317,
+      "sha256": "8935e65798539f8629f350ef9cfe34fe1ffc41696553b48491ff966deb873708"
+    }
+  }
+}

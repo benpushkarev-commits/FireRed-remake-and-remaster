@@ -1,0 +1,167 @@
+# ─────────────────────────────────────────────────────────────────────
+# User-provided cartridge ROMs (copyrighted; never commit).
+# See baserom.md for the SHA-1 of the known-good dumps.
+# ─────────────────────────────────────────────────────────────────────
+roms/
+*.gba
+*.GBA
+
+# ─────────────────────────────────────────────────────────────────────
+# Save files
+# ─────────────────────────────────────────────────────────────────────
+saves/
+*.sav
+*.srm
+*.fla
+*.flash
+
+# ─────────────────────────────────────────────────────────────────────
+# Vendored decomp / reference projects. pret/pokefirered lives under
+# third_party/pokefirered/ and is read only by
+# tools/import_pokefirered_symbols (names + addresses + sizes; no C
+# source enters the build). License obligations stay with the upstream
+# checkout. The vendored .sym lives here too and is large.
+# ─────────────────────────────────────────────────────────────────────
+# pret/pokefirered is a tracked SUBMODULE at third_party/pokefirered — it pins the
+# exact upstream revision whose build reproduces this project's ROM, which
+# is what makes its symbol addresses meaningful here. It is provenance
+# only: no decomp source enters the build (tools/decomp/import-symbols.sh
+# reads names, addresses and sizes out of a WSL-side build). Note the glob:
+# a bare `third_party/` excludes the DIRECTORY, and git cannot re-include a
+# path underneath an excluded directory, so the !third_party/pokefirered negation
+# would never take effect. Everything else here stays ignored (agbcc
+# installs, build sandboxes, large dumps).
+third_party/*
+!third_party/pokefirered
+
+# ─────────────────────────────────────────────────────────────────────
+# Build output
+# ─────────────────────────────────────────────────────────────────────
+build/
+build-*/
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.tlog
+*.idb
+release-stage/
+FireRedRecomp.exe
+FireRedRecomp-v*-windows-x64.zip
+FireRedRecomp-windows-*.zip
+
+# Sidecar caches written by the asset picker.
+bios.cfg
+rom.cfg
+
+# ─────────────────────────────────────────────────────────────────────
+# Generated code (derivative of copyrighted ROM; regenerate locally).
+# CLAUDE.md "Generated C is never edited" applies here — the README
+# stays tracked so the directory exists in fresh clones.
+# ─────────────────────────────────────────────────────────────────────
+generated/*.c
+generated/*.cpp
+generated/*.h
+generated/*.json
+src/gen/
+
+# ─────────────────────────────────────────────────────────────────────
+# Ghidra project DB (large, machine-specific). Only the README.md and
+# the generated import_symbols.py script are tracked.
+# ─────────────────────────────────────────────────────────────────────
+ghidra/*
+!ghidra/README.md
+!ghidra/.gitkeep
+!ghidra/import_symbols.py
+
+# ─────────────────────────────────────────────────────────────────────
+# Diagnostic / triage artifacts. Diff dumps, frame snapshots, boot
+# traces — all regenerated on demand.
+# ─────────────────────────────────────────────────────────────────────
+_triage/
+*.log
+*.bmp
+*.png
+*.rgb
+boot_trace*.txt
+hw_trace.log
+# Session probe/run dumps: underscore-prefixed run outputs (_c250_out.txt,
+# _stack_probe_f280_out.txt, ...), crash-localization markers, fingerprint
+# CSVs, the self-heal miss-log fragment, the runtime coverage report, and the
+# nm symbol cache used by the Win32 debug tools. All regenerated on demand.
+_*.txt
+PROBE_*.txt
+boot_out.txt
+*.csv
+*.frag
+recomp_coverage.json
+fr_syms.txt
+# Large readelf/nm dumps from the byte-matching pokefirered WSL build. These
+# are the gold importer's *input* (see tools/import_pokefirered_symbols/
+# import_pokefirered_gold.py + ../../wsl_build_firered.sh); the tracked
+# symbols/*.toml + *.tsv are its committed *output*. Regenerable, decomp-
+# derived, and large — treated like the vendored .sym (see third_party/).
+symbols/pokefirered_*.txt
+
+# ─────────────────────────────────────────────────────────────────────
+# Local-only config overrides (per-developer, applied after game.toml).
+# ─────────────────────────────────────────────────────────────────────
+*.local.toml
+*.local.ini
+debug.local.ini
+
+# ─────────────────────────────────────────────────────────────────────
+# IDE / editor
+# ─────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.vs/
+*.vcxproj.user
+*.swp
+
+# ─────────────────────────────────────────────────────────────────────
+# OS noise
+# ─────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────────────────────────────────────────────
+# Python caches
+# ─────────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+
+# ─────────────────────────────────────────────────────────────────────
+# Claude auto-memory (per-user, never committed).
+# ─────────────────────────────────────────────────────────────────────
+memory/
+
+# ─────────────────────────────────────────────────────────────────────
+# Multi-variant layout (variants/<name>/): per-variant generated code is
+# derivative of the copyrighted ROM (regenerate locally); the large
+# readelf/sections/typed symbol dumps are the importer's input (decomp-
+# derived). The README.md placeholder + the symbols/*.toml + *.tsv
+# importer OUTPUT stay tracked so a fresh clone can build. Mirrors the
+# top-level generated/ + symbols/pokefirered_*.txt rules above.
+# ─────────────────────────────────────────────────────────────────────
+variants/*/generated/*.c
+variants/*/generated/*.cpp
+variants/*/generated/*.h
+variants/*/generated/*.json
+variants/*/symbols/*_readelf.txt
+variants/*/symbols/*_sections.txt
+variants/*/symbols/*_typed.txt
+
+# README showcase screenshots (override the *.png ignore above)
+!docs/screenshots/
+!docs/screenshots/*.png
+
+# Decomp symbol-import INPUTS: the bulky readelf dumps tools/decomp/import-symbols.sh
+# captures from the pinned decomp build. Regenerable and large; the small
+# reviewable OUTPUTS (symbols/*.tsv, symbols/<ID>_symbols.toml) and the
+# <decomp>_revision.txt provenance stamp stay tracked.
+symbols/*_syms.txt
+symbols/*_sections.txt
+variants/*/symbols/*_syms.txt
+variants/*/symbols/*_sections.txt

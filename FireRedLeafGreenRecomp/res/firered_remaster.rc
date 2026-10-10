@@ -1,0 +1,26 @@
+// FireRed Remaster: application icon and version strings (Explorer, taskbar,
+// Task Manager). SDL2 uses the exe's first icon for its window class.
+1 ICON "firered_remaster.ico"
+
+1 VERSIONINFO
+FILEVERSION 1,4,0,0
+PRODUCTVERSION 1,4,0,0
+FILEOS 0x40004
+FILETYPE 0x1
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "FileDescription", "FireRed Remaster"
+      VALUE "ProductName", "FireRed Remaster"
+      VALUE "FileVersion", "1.4"
+      VALUE "ProductVersion", "1.4"
+      VALUE "OriginalFilename", "FireRed Remaster.exe"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 1200
+  END
+END

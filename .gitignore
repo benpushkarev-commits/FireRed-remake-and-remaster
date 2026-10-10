@@ -1,0 +1,47 @@
+# PUBLIC REPO: never commit game content.
+# ROMs, BIOS, saves
+*.gba
+*.GBA
+*.sav
+*.srm
+gba_bios.bin
+roms/
+# Switch / Let's Go dumps, keys and extracted assets
+*.nca
+*.nsp
+*.xci
+*.keys
+*.gfbmdl
+*.gfpak
+*.gfbanm
+*.bntx
+*.glb
+*.gltf
+*.blend
+**/launcher/boxart.tga
+rust-prototype/assets/
+rust-prototype/data/*.json
+!rust-prototype/data/*provenance*.json
+letsgo-pipeline/out/
+letsgo-pipeline/tex/
+letsgo-pipeline/work*/
+# Generated / build output
+**/generated/*.c
+**/generated/*.cpp
+**/generated/*.h
+**/generated/*.json
+!FireRedLeafGreenRecomp/gbarecomp/tests/**/generated/*
+build/
+graphify-out/
+tools/check-game/
+rust-prototype/target/
+rust-prototype/target-logic/
+rust-prototype/output/
+rust-prototype/captures/
+rust-prototype/reference/
+rust-prototype/tools/cargo/
+rust-prototype/tools/rustup/
+*.log
+__pycache__/
+*.pyc
+.claude/

@@ -1,0 +1,20 @@
+# leafgreen_usa.toml — region overrides for Pokémon LeafGreen USA v1.0 (rev0).
+#
+# Layered on top of ../game.toml (config/<short_name>_<region>.toml =
+# config/leafgreen_usa.toml). Cross-verified against pret/pokefirered's
+# leafgreen.sha1 (rev0) build target.
+#
+# We target v1.0 (rev0) to match FireRed v1.0 — pret/pokefirered's CANONICAL
+# default build (bare `make` = firered rev0, 41cb23d8). LeafGreen rev0 is the
+# same source compiled GAME_VERSION=LEAFGREEN, so it's the apples-to-apples
+# pairing (no rev0/rev1 confound). The v1.1 (rev1, 7862c67b) work is preserved
+# in ../../../_gen3_leafgreen_rev1_archive/.
+
+[rom]
+sha1  = "574fa542ffebb14be69902d1d36f1ec0a4afd71e"   # leafgreen rev0 (v1.0)
+
+[save]
+type = "flash1m"    # 1 Mbit (128 KB) flash on the LeafGreen cart
+size = "0x20000"
+
+[quirks]
