@@ -26,13 +26,11 @@
 
 ## The three projects
 
-| | What it is | Runs the original code? | Look |
-|---|---|---|---|
-| **[FireRed Remaster](#1-firered-remaster)** | The original GBA game, statically recompiled into a native Windows program, with PC features added | Yes, recompiled | Original 2D, widescreen, optional HD UI and 3D view |
-| **[FireRed Native](#2-firered-native-rust-rewrite)** | A brand-new engine written in Rust that reimplements FireRed's logic from the decomp | No, rewritten from scratch | FireRed's own tiles and sprites, in 3D or top-down |
-| **[FireRed Let's Go Remake](#3-firered-lets-go-remake)** | FireRed Native, dressed in Pokémon: Let's Go models, maps and animations | No, same Rust engine | Modern 3D, Let's Go style |
-
-The Native rewrite and the Let's Go Remake are the same program: the Let's Go look is a layer of switchable settings on top of the plain Native game.
+| | What it is | Runs the original code? |
+|---|---|---|
+| **[FireRed Remaster](#1-firered-remaster)** | The original GBA game, statically recompiled into a native Windows program, with optional PC features on top | Yes, recompiled to C++ |
+| **[FireRed Native](#2-firered-native-rust-rewrite)** | FireRed's game logic rewritten in Rust as a standalone, renderer-free library, ported from the decomp | No, rewritten from scratch |
+| **[FireRed Let's Go Remake](#3-firered-lets-go-remake)** | A 3D game built on the FireRed Native library, using Pokémon: Let's Go models, maps and animations | No, uses the Rust library |
 
 ---
 
@@ -40,9 +38,9 @@ The Native rewrite and the Let's Go Remake are the same program: the Let's Go lo
 
 ### Overview
 
-The Remaster *is* Pokémon FireRed (USA), but running as a native PC program instead of in an emulator. The game's ARM/Thumb code is translated into C++ ahead of time using [gbarecomp](https://github.com/mstan/gbarecomp), so every rule, script and bug behaves exactly like the cartridge. All the new features sit on top as presentation, and every one can be switched off in the game's own OPTION menu.
+The Remaster *is* Pokémon FireRed (USA), but running as a native PC program instead of in an emulator. The game's ARM/Thumb code is translated into C++ ahead of time using [gbarecomp](https://github.com/mstan/gbarecomp), so every rule, script and bug behaves exactly like the cartridge. Everything new sits on top as presentation, and **every extra can be switched on or off in-game**. With everything off, it's simply FireRed in widescreen.
 
-### Screenshots: the game running with every extra switched off
+### Screenshots: the game with every extra switched off
 
 | | |
 |---|---|
@@ -51,14 +49,68 @@ The Remaster *is* Pokémon FireRed (USA), but running as a native PC program ins
 | ![Route 1](docs/screenshots/remaster-route1.jpg) | ![Route 1 north](docs/screenshots/remaster-route1-north.jpg) |
 | Route 1's tall grass | Route 1, further north |
 
-### Features
+### Settings and UI rundown
 
-- **Native PC program.** Boots straight into the game; windowed, borderless or fullscreen.
-- **16:9 widescreen.** Draws extra map columns, checked against the real video memory every frame.
-- **PC controls.** Keyboard (WASD + arrows), mouse hover and click on menus, controller with analog stick.
-- **Optional HD interface.** Sharp modern battles, dialogue, menus, title screen and Pokédex, each switchable on its own.
-- **Quality of life.** Fast forward 2×–10×, optional infinite Rare Candy, settings built into the OPTION screen.
-- **Experimental 3D "diorama" view** (F3). A multithreaded software renderer turns the 2D map into a tilted 3D scene:
+All settings live inside the game's own menus and are saved to `config.ini` automatically. There are three ways in:
+
+- **In game:** press **Esc**, or open the Start menu → **OPTION**, then switch to the second page (Game / System tabs).
+- **Title screen:** the title menu has its own **OPTION** entry.
+- **First launch:** a one-time setup screen lets you pick the main options before you start.
+
+Navigation: **L / R** switches category, **B or right-click** goes back one level, **Esc** (or the controller's Guide button) returns straight to the game. The mouse can hover and click every row.
+
+#### System
+
+| Setting | Options | What it does |
+|---|---|---|
+| Display Mode | Window / Borderless / Fullscreen | How the game window is shown |
+| Widescreen | On / Off | 16:9 view that shows extra map columns; off gives the original 3:2 |
+| Window Size | Scale | Window size in windowed mode |
+| Smoothing | On / Off | Pixel filtering when scaling |
+| Interface | Submenu | Classic or modern UI for each part of the game (see below) |
+| Volume | 0–100 | Master volume |
+| Auto Run | On / Off | Run without holding the run button |
+| Mouse Control | On / Off | Hover and click menus, scroll lists with the wheel |
+| Extras | Submenu | Fast forward, Rare Candy, 3D view (see below) |
+| Controls | Submenu | Keyboard and controller bindings (see below) |
+| Quit Game | Press twice | Closes the game |
+
+#### Interface: Classic or Modern for each part
+
+Each part of the UI can be switched on its own between **Classic** (the original GBA look) and **Modern** (a sharp HD redraw at full resolution):
+
+| Setting | Covers | `config.ini` key |
+|---|---|---|
+| Battles | Battle HUD, HP bars, move and command menus | `hd_battle` |
+| Dialogue Boxes | Text boxes for NPCs, signs and story | `hd_dialogue` |
+| Field Menus | Start menu and other in-field menus | `hd_text` |
+| Title Menu | Title screen menu (Continue, New Game, Option) | `hd_title` |
+| Pokédex | Pokédex list and entry pages | `hd_dex` |
+| Menus & Screens | Full-screen menus and screens | `hd_screens` |
+| Text Style | Classic pixel font or modern font | `modern_text` |
+
+#### Extras
+
+| Setting | Options | `config.ini` key |
+|---|---|---|
+| Fast Forward Speed | 2×, 3×, 4×, 5×, 6×, 8×, 10× (music mutes while active) | `ff_speed` |
+| Fast Forward Key | Any key you press | `ff_key` |
+| Key Mode | Hold / Toggle | `ff_toggle` |
+| Infinite Rare Candy | On / Off: the Bag always keeps 99 Rare Candies | `rare_candy` |
+| 3D View (test) | On / Off: also toggled any time with **F3** | `diorama` |
+
+#### Controls
+
+| Setting | Options |
+|---|---|
+| Controller Buttons | Xbox or Nintendo A/B layout |
+| Left Stick Moves | On / Off |
+| Confirm, Back, Menu, Use Item, Up, Down, Left, Right, L, R | Rebind each to any key |
+| Restore Default Keys | Back to the default WASD + arrow keys layout |
+
+#### Experimental 3D view
+
+The **3D View** extra (or **F3**) uses a multithreaded software renderer to turn the 2D map into a tilted 3D diorama. The game underneath is unchanged:
 
 | | |
 |---|---|
@@ -71,28 +123,54 @@ The Remaster *is* Pokémon FireRed (USA), but running as a native PC program ins
 
 ### Overview
 
-FireRed Native is a from-scratch reimplementation of FireRed in **Rust** (using the Bevy engine). It doesn't run the original code at all. Instead, the game's logic is ported by hand from the [pret/pokefirered](https://github.com/pret/pokefirered) decompilation, and its maps, scripts and data are imported and checked against the original ROM. The aim is a game that plays *exactly* like FireRed but is free to look and control like a modern PC game.
+FireRed Native is FireRed's **game logic rewritten in Rust**, ported by hand from the [pret/pokefirered](https://github.com/pret/pokefirered) decompilation (pinned to revision `037335f4`), with its data imported from the decomp and checked against the original ROM.
 
-### Screenshots: plain Native mode (no Let's Go assets, no effects)
+The core is a **plain Rust library with no renderer, emulator or GBA runtime**: just the rules of the game as ordinary Rust types and functions. That makes it usable on its own: for a different engine, a fan game, a battle simulator, a bot, a randomiser or tooling. The Let's Go Remake is one front-end built on top of it.
 
-| | |
-|---|---|
-| ![Pallet Town](docs/screenshots/native-pallet.jpg) | ![Route 1](docs/screenshots/native-route1.jpg) |
-| Pallet Town in 3D, third-person camera | Route 1, with no loading zone from Pallet |
-| ![Top-down](docs/screenshots/native-topdown.jpg) | ![Battle](docs/screenshots/native-battle.jpg) |
-| Classic top-down camera | A wild battle using FireRed's battle maths |
+Where behaviour comes from a specific function in the decomp, the Rust code names it (for example `CalculateBaseDamage`, `CreateMon`, `TryStandardWildEncounter`, `ScrCmd_*`), so you can check the port against the original C.
 
-### Features
+### How much has been ported
 
-- **The real FireRed world.** 137 maps imported from the decomp and verified against the ROM: collision, warps, NPCs, signs and triggers.
-- **Original scripts.** A native script VM runs FireRed's own event scripts, flags and text.
-- **Battles.** Generation III damage formula, full type chart, stat stages, accuracy, critical hits, status conditions (poison, burn, paralysis, sleep) and early trainer AI.
-- **Wild Pokémon.** Grass encounters with the original rates and RNG, catching with real ball maths, fleeing, whiteout.
-- **Native saves.** Party, bag, PC boxes and Pokédex.
-- **Camera your way.** Third-person with mouse look, or the classic top-down grid. Free or grid movement, with optional diagonals.
-- **Everything is switchable.** An in-game settings panel turns each feature on or off:
+**Status: 🚧 work in progress.** Library code so far is about **7,800 lines of Rust** with **73 automated tests**.
 
-![Settings](docs/screenshots/native-settings.jpg)
+| System | Ported from (pokefirered) | Progress |
+|---|---|---|
+| **Maps and movement:** collision, elevation, ledges, doors, warps, map connections, walk/run timing | `field_player_avatar.c`, `event_object_movement.c`, `field_control_avatar.c` | ✅ Done. **180 maps** imported (103,723 cells, 554 NPCs) |
+| **Pokémon data:** species, moves, items, natures, growth rates | `src/data/` | ✅ All imported: **411 species, 356 moves, 375 items** |
+| **Pokémon creation and stats:** CreateMon, personality/IVs/nature, stat formula, EXP and levels, starting movesets, PP | `pokemon.c` | ✅ Done |
+| **Party, PC and Bag:** give Pokémon, 14 PC boxes × 30, bag pockets, money | `pokemon_storage_system.c`, `item.c` | ✅ Done |
+| **Pokédex:** seen/caught flags, Kanto/National counts | `pokedex.c` | ✅ Done |
+| **Field script VM:** runs FireRed's original event scripts (flags, vars, text, items, trainers, movement) | `script.c`, `scrcmd.c` | 🔨 **~109 of 213 script commands (~51%)**. All 9,731 script labels and 4,580 text entries imported |
+| **Wild encounters:** encounter rate, cooldown, slot and level rolls, Repel, flutes, ability modifiers, nature/personality generation | `wild_encounter.c` | ✅ Land and cave encounters done (124 encounter tables imported). ⏳ Surfing, fishing and Rock Smash not yet |
+| **Battle engine:** damage formula, physical/special split, full type chart, STAB, stat stages, accuracy/evasion, critical hits, turn order | `battle_util.c`, `battle_script_commands.c` | 🔨 Core maths done |
+| **Move effects** | `battle_script_commands.c`, `data/battle_scripts_1.s` | 🔨 **24 of 214 effects (~11%)**: poison, burn, paralysis, sleep, freeze, confusion, stat changes, drain, healing and more |
+| **Status conditions:** poison/toxic, burn, paralysis, sleep, freeze; field poison steps | `battle_util.c`, `field_poison.c` | ✅ Done (except a few ability interactions) |
+| **Catching and fleeing:** catch formula, ball bonuses, shake checks, run odds | `battle_script_commands.c`, `battle_main.c` | ✅ Done (Safari Ball pending) |
+| **Trainer AI** | `battle_ai_script_commands.c` | 🔨 Early-game commands only |
+| **Whiteout, respawn, money loss** | `overworld.c` | ✅ Done |
+| **Random number generator:** global RNG stream, persisted like the original | `random.c` | ✅ Done |
+| **Saves** | `save.c` | ✅ Native save format (not compatible with GBA `.sav` files) |
+| **Not started yet** | | ⏳ Evolution, HM field moves (Surf, Cut, etc.), Safari Zone, most items, double battles, later-game systems |
+
+### Using it as a library
+
+The crate is `firered-native-prototype` in [`rust-prototype/`](rust-prototype). Turn off the default `renderer` feature to get only the game logic, without Bevy:
+
+```toml
+[dependencies]
+firered-native-prototype = { path = "rust-prototype", default-features = false }
+```
+
+```rust
+use firered_native_prototype::{Game, Input, World, NORTH};
+
+let world = World::load(std::path::Path::new("data/world.json"))?; // generated, see below
+let mut game = Game::new(&world, "pallet");
+game.tick(&world, Input { direction: Some(NORTH), run: false, interact: false });
+println!("{} {:?}", game.map, game.position);
+```
+
+Modules: `lib` (world, collision, movement), `core` (Pokémon, party, storage, bag, Pokédex), `field` (script VM), `encounter` (wild encounters), `battle` (battle engine and AI), `actors` (NPCs and scenes). Game data (`data/*.json`) isn't included. Generate it with `rust-prototype/tools/import_*.py` before building, because the tables are compiled into the library.
 
 ---
 
